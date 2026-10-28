@@ -36,7 +36,7 @@ export const vstr = (v) => `${v.major}.${v.minor}.${v.patch}`;
 /** Logo file name for a token: logos/<chainId>/<checksummed address>.<ext>. */
 export const logoPath = (chainId, address, ext) => join(LOGOS_DIR, String(chainId), `${getAddress(address)}.${ext}`);
 export function findLogo(chainId, address) {
-  for (const ext of ['svg', 'png']) if (existsSync(logoPath(chainId, address, ext))) return ext;
+  for (const ext of ['png', 'svg']) if (existsSync(logoPath(chainId, address, ext))) return ext;
   return null;
 }
 

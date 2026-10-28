@@ -1,10 +1,10 @@
 {
   "name": "Gully Chain",
-  "timestamp": "2026-10-28T00:05:27.202Z",
+  "timestamp": "2026-10-28T00:32:50.670Z",
   "version": {
     "major": 2,
     "minor": 0,
-    "patch": 0
+    "patch": 1
   },
   "logoURI": "https://gullychain.xyz/assets/apple-touch-icon.png",
   "keywords": [
@@ -54,7 +54,7 @@
       "name": "Gully Bridged ETH",
       "symbol": "gETH",
       "decimals": 18,
-      "logoURI": "https://gullychain.xyz/tokens/logos/485590/0x7Dd1Aa3d8598A3edB43EB43ddcb5BCE4AbfBb702.svg",
+      "logoURI": "https://gullychain.xyz/tokens/logos/485590/0x7Dd1Aa3d8598A3edB43EB43ddcb5BCE4AbfBb702.png",
       "tags": [
         "bridged"
       ],
