@@ -7,3 +7,4 @@ node_modules/
 .yarn/install-state.gz
 .yarn/build-state.yml
 .yarn/unplugged
+logos/todo.json

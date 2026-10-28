@@ -1,0 +1,24 @@
+{
+  "name": "gully-token-lists-tools",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Builds and validates the Gully Chain token lists (lists/*.tokenlist.json) against the @uniswap/token-lists schema.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "validate": "node validate.mjs",
+    "validate:onchain": "node validate.mjs --onchain",
+    "logos": "python logos.py",
+    "test": "node --test \"test/*.test.mjs\""
+  },
+  "dependencies": {
+    "@uniswap/token-lists": "1.0.0-beta.35",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "viem": "2.57.11"
+  }
+}

@@ -1,0 +1,40 @@
+name: Gully lists
+# Validates the Gully Chain token lists on every PR and push to main: unit tests, schema + checks (offline), the token
+# data read back from the chain (public RPC, no secrets), and the version bump against the base branch.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gully/tools
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: '22.23.4'
+      - run: npm ci
+      - run: npm test
+      - name: Schema, checks and on-chain data
+        run: node validate.mjs --onchain
+      - name: Version bump against the base branch
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/base"
+          for f in gully.tokenlist.json gully-extended.tokenlist.json; do
+            git show "$BASE_SHA:lists/$f" > "$RUNNER_TEMP/base/$f" 2>/dev/null || rm -f "$RUNNER_TEMP/base/$f"
+          done
+          node validate.mjs --previous "$RUNNER_TEMP/base"
