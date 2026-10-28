@@ -1,0 +1,57 @@
+{
+  "$comment": "Source of the Gully token lists. Addresses here are public on-chain contract addresses (no secrets: this repo is public). name, symbol and decimals are never typed in: tools/build.mjs reads them from the chain. Edit this file in a PR to add a curated token (see CONTRIBUTING.md).",
+  "chainId": 485590,
+  "chainName": "Gully Chain Testnet",
+  "rpcUrl": "https://rpc.gullychain.xyz",
+  "indexerUrl": "https://indexer.gullychain.xyz",
+  "securityReportsUrl": "https://gullylabs.xyz/api/security/reports",
+  "logoBaseUrl": "https://gullychain.xyz/tokens/logos",
+  "listLogoURI": "https://gullychain.xyz/assets/apple-touch-icon.png",
+  "parentChain": { "chainId": 421614, "name": "Arbitrum Sepolia" },
+  "launchpads": [
+    { "address": "0x89350b316cF592813FCcB8719AA275E776501aCa", "version": "1.0.0", "name": "DeepCore launchpad v1.0" },
+    { "address": "0x3378b659f6ddA7F13D87599B383b3995f82D0974", "version": "2.0.0", "name": "DeepCore launchpad v2.0" },
+    { "address": "0xCe2c3Ac523EfF3Bec8D3894f7e5C5F519638326b", "version": "2.1.0", "name": "DeepCore launchpad v2.1" }
+  ],
+  "curated": [
+    {
+      "address": "0x26aCCCb2e98ca9e067E58668Aa3B101beF432754",
+      "tags": ["wrapped"],
+      "note": "WETH9, the canonical wrapped ETH (Gully Swap, the launchpad and Uniswap v3 all use it)"
+    },
+    {
+      "address": "0x7Dd1Aa3d8598A3edB43EB43ddcb5BCE4AbfBb702",
+      "tags": ["bridged"],
+      "bridgeInfo": { "421614": { "tokenAddress": "0x3Aa770313a4c8aa6F9B1055fDBfd9dbC4051bad0" } },
+      "extensions": { "bridge": "hyperlane", "warpRoute": "GETH/arbitrumsepolia-gullychaintestnet", "originNative": true },
+      "note": "gETH: Hyperlane synthetic of native ETH locked in the HypNative router 0x3Aa7...bad0 on Arbitrum Sepolia"
+    },
+    {
+      "address": "0x65Ba03c6FA90Ed549f465D4c8f2e784D6eEB7E76",
+      "tags": ["stablecoin", "bridged"],
+      "bridgeInfo": { "421614": { "tokenAddress": "0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d" } },
+      "extensions": { "bridge": "arbitrum-usdc-gateway" },
+      "note": "USDC.e: Circle Bridged USDC Standard behind the Arbitrum USDC custom gateways; origin is Circle USDC on Arbitrum Sepolia"
+    },
+    {
+      "address": "0xDBE84bE6496Fb3d07F601548555ec7Acc4CeBa8F",
+      "tags": ["stablecoin"],
+      "extensions": { "psm": "0xe1Ae51036ede1b244c532A81FaC196f19fa5E28e", "backedBy": "0x65Ba03c6FA90Ed549f465D4c8f2e784D6eEB7E76" },
+      "note": "glUSD: Gully Pay's stablecoin, minted 1:1 against USDC.e by the PSM"
+    },
+    { "address": "0x661B016D2Dc8E5e418C3B00A4098e341d8637ec1", "tags": ["launchpad"], "note": "FROG, DeepCore launch (test token)" },
+    { "address": "0x8386a49a61060Cc3F21415bde2e78b2ecaC209DC", "tags": ["launchpad"], "note": "MOSS, DeepCore launch (test token)" },
+    { "address": "0xE6AB829a02AAF474e7b6d4434B82A68EBC618Fe4", "tags": ["launchpad"], "note": "LABRAT, DeepCore launch (test token)" }
+  ],
+  "excluded": [
+    {
+      "address": "0x3292dE74305DF64dbe082c6834fa841353eB2415",
+      "reason": "Arbitrum token-bridge WETH (aeWETH, symbol WETH) minted by the WETH gateway for Arbitrum Sepolia WETH. Total supply 0 and a second 'WETH' confuses pickers; gETH is the supported bridged ETH and WETH9 the wrapped ETH."
+    }
+  ],
+  "extended": {
+    "minHolders": 2,
+    "minTxns": 3,
+    "$comment": "A launchpad token joins the extended list once it has at least minHolders holders and minTxns trades (indexer counts), or has graduated to a Gully Swap pool. Tokens with a published Gully Security report with critical or high findings, and tokens in `excluded`, are left out."
+  }
+}

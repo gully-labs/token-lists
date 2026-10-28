@@ -1,4 +1,91 @@
-# @uniswap/token-lists (beta)
+# Gully Chain token lists
+
+[![Gully lists](https://github.com/gully-labs/token-lists/actions/workflows/gully-lists.yml/badge.svg)](https://github.com/gully-labs/token-lists/actions/workflows/gully-lists.yml)
+
+Token lists for **Gully Chain** (Arbitrum Orbit L3; testnet chain id **485590**) in the
+[Uniswap token-lists](https://github.com/Uniswap/token-lists) format, validated against the `@uniswap/token-lists`
+1.0.0-beta.35 JSON schema. This repo is a fork of Uniswap/token-lists (MIT): the schema and its TypeScript package are
+unchanged below; the Gully lists, logos and tools are in `lists/`, `logos/` and `gully/`.
+
+| List | URL | File |
+|---|---|---|
+| **Gully Chain** (default, curated) | https://gullychain.xyz/tokenlist.json | [`lists/gully.tokenlist.json`](lists/gully.tokenlist.json) |
+| **Gully Chain Extended** (plus active launchpad tokens) | https://gullychain.xyz/tokenlist-extended.json | [`lists/gully-extended.tokenlist.json`](lists/gully-extended.tokenlist.json) |
+| Logos | `https://gullychain.xyz/tokens/logos/485590/<address>.png\|svg` | [`logos/485590/`](logos/485590) |
+
+All three are served with `Access-Control-Allow-Origin: *` and `Cache-Control: public, max-age=300`, so any web app can
+fetch them. Raw GitHub URLs work too (`https://raw.githubusercontent.com/gully-labs/token-lists/main/lists/gully.tokenlist.json`).
+
+## What is on the default list
+
+| Token | Address | Notes |
+|---|---|---|
+| WETH (Wrapped Ether) | `0x26aCCCb2e98ca9e067E58668Aa3B101beF432754` | WETH9, used by Gully Swap, Uniswap v3 and the launchpad. Tag `wrapped` |
+| gETH (Gully Bridged ETH) | `0x7Dd1Aa3d8598A3edB43EB43ddcb5BCE4AbfBb702` | Hyperlane warp route; native ETH locked on Arbitrum Sepolia (`bridgeInfo` 421614) |
+| USDC.e (Bridged USDC (Gully Labs)) | `0x65Ba03c6FA90Ed549f465D4c8f2e784D6eEB7E76` | Circle Bridged USDC Standard; Circle USDC on Arbitrum Sepolia (`bridgeInfo` 421614) |
+| glUSD (Gully USD) | `0xDBE84bE6496Fb3d07F601548555ec7Acc4CeBa8F` | Gully Pay stablecoin, 1:1 PSM against USDC.e |
+| FROG, MOSS, LABRAT | see the list | DeepCore launchpad test tokens |
+
+The Arbitrum token-bridge WETH (`0x3292dE74305DF64dbe082c6834fa841353eB2415`, also symbol WETH, supply 0) is
+deliberately not listed: one WETH per list. Use WETH9 to wrap ETH and gETH for bridged ETH.
+
+## Use the list
+
+**Uniswap-style interfaces (Gully Swap, any Uniswap fork):** Manage tokens → Lists → paste
+`https://gullychain.xyz/tokenlist.json` (or the extended URL) → Import.
+
+**Wallets:** most wallets that read token lists (Rabby, Rainbow, Zerion and others) pick tokens from lists they track;
+for a single token, add it by address on network Gully Chain Testnet (chain id 485590, RPC https://rpc.gullychain.xyz).
+MetaMask: Import tokens → paste the address (symbol and decimals fill in).
+
+**dApps:**
+
+```js
+const LIST = 'https://gullychain.xyz/tokenlist.json';
+const list = await fetch(LIST).then((r) => r.json());             // CORS *, cached 5 minutes
+const tokens = list.tokens.filter((t) => t.chainId === 485590);
+```
+
+Bundle a copy of the list as a fallback for when the fetch fails, and check `version` to pick up updates. With
+`@uniswap/token-lists` you can diff versions (`diffTokenLists`, `minVersionBump`).
+
+## Add a token
+
+See [CONTRIBUTING.md](CONTRIBUTING.md): a PR that adds the address and tags to `gully/config.json` plus a logo; the
+build reads name, symbol and decimals from the chain, CI checks everything again. Launchpad tokens join the extended list
+on their own once active.
+
+## Build and validate
+
+```sh
+cd gully/tools && npm ci
+node build.mjs                 # chain + indexer -> lists/*.json (version + timestamp set for you)
+python logos.py                # logos for tokens that have none yet (launch image, else a generated mark), then build again
+npm test                       # node:test unit tests + the committed lists
+node validate.mjs --onchain    # schema (ajv) + duplicate/checksum/logo checks + name/symbol/decimals read back from chain
+```
+
+`build.mjs` fails on duplicates, bad checksums, a missing logo, schema errors or a token without contract code; the
+versioning follows the spec (major on removal, minor on addition, patch on metadata). The sources are all public:
+RPC `https://rpc.gullychain.xyz`, indexer `https://indexer.gullychain.xyz/tokens`, Gully Security
+`https://gullylabs.xyz/api/security/reports`. Nothing in this repo needs a key; never commit one.
+
+Publishing: gully-ops (`l3/tokenlist/sync.mjs`) copies `lists/` and `logos/` from this repo into the gullychain.xyz site
+build, so every landing deploy serves the current lists.
+
+## tokenlists.org
+
+To get the lists on [tokenlists.org](https://tokenlists.org), open a PR on
+[Uniswap/tokenlists-org](https://github.com/Uniswap/tokenlists-org) adding an entry to `src/token-lists.json`:
+
+```json
+"https://gullychain.xyz/tokenlist.json": { "name": "Gully Chain", "homepage": "https://gullychain.xyz" }
+```
+
+---
+
+# Upstream: @uniswap/token-lists
+
 
 [![Tests](https://github.com/Uniswap/token-lists/workflows/Tests/badge.svg)](https://github.com/Uniswap/token-lists/actions?query=workflow%3ATests)
 [![npm](https://img.shields.io/npm/v/@uniswap/token-lists)](https://unpkg.com/@uniswap/token-lists@latest/)
