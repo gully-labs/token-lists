@@ -5,11 +5,17 @@ The Gully Chain lists follow the [Uniswap token-lists](https://github.com/Uniswa
 | List | URL | What is on it |
 |---|---|---|
 | Default (curated) | `https://gullychain.xyz/tokenlist.json` | WETH9, the stablecoins, bridged assets and tokens reviewed in a PR here |
-| Extended | `https://gullychain.xyz/tokenlist-extended.json` | the default list plus every Gully Chain launchpad (Gully Core) token that passes the activity filter |
+| Extended | `https://gullychain.xyz/tokenlist-extended.json` | the default list plus every Gully Core launch whose liquidity lock verifies on chain, and the legacy launchpad tokens that pass the activity filter |
 
-**You do not need a PR for the extended list.** A token launched on the Gully Chain launchpad joins it at the next build once the
-indexer shows at least `minHolders` holders and `minTxns` trades (see `gully/config.json`), or once it graduates to a
-Gully Swap pool, unless a published Gully Security report has critical or high findings for it.
+**You do not need a PR for the extended list.** A token launched on **Gully Core** (the Gully Chain launchpad) joins it
+at the next build once LaunchpadKitV2 knows it (`getLaunch(token).createdAt != 0`), every pool's liquidity is verified
+locked on chain (kit `legsOf` / `getLeg` -> LP locker `isLocked` and `getLock.poolId`), and its metadata has an ipfs icon.
+Its `logoURI` is that icon through the Gully Labs gateway (`https://ipfs.gullylabs.xyz/ipfs/<cid>`), tag `gullycore`.
+When the indexer already has the token, the activity filter below applies too.
+
+Tokens of the legacy launchpads (before Gully Core) join once the indexer shows at least `minHolders` holders and
+`minTxns` trades (see `gully/config.json`), or once they graduate to a Gully Swap pool; they are tagged `legacy`.
+Either way a published Gully Security report with critical or high findings keeps a token out.
 
 **The default list takes a PR.** One token per PR; open it with the
 [add-token template](.github/PULL_REQUEST_TEMPLATE/add-token.md) (`?template=add-token.md` on the compare page).
@@ -53,10 +59,13 @@ removal, minor on an addition, patch on a metadata change; the timestamp moves o
 | `wrapped` (name "native wrapped") | WETH9, unwraps 1:1 to ETH |
 | `stablecoin` | tracks the US dollar |
 | `bridged` | bridged from Arbitrum Sepolia; `extensions.bridgeInfo` names the origin token |
-| `launchpad` | launched on Gully Core, the Gully Chain launchpad |
+| `gullycore` (name "gully core") | Launched on Gully Core |
+| `legacy` (name "legacy launchpad") | launched on a legacy Gully Chain launchpad, before Gully Core |
+| `launchpad` | launched on a Gully Chain launchpad (legacy tokens carry it with `legacy`) |
 | `graduated` | graduated from the bonding curve to a Gully Swap pool |
 
-Tag ids follow the schema (at most 10 word characters), so "native-wrapped" is the display name of `wrapped`.
+Tag ids follow the schema (at most 10 word characters), so "native-wrapped" is the display name of `wrapped`,
+"gully-core" is `gullycore` and "legacy-launchpad" is `legacy`.
 
 ## Removing a token
 

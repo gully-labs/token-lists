@@ -21,8 +21,12 @@ export const TAGS = {
   wrapped: { name: 'native wrapped', description: 'WETH9, the wrapped native gas token. Unwraps 1:1 to ETH on Gully Chain' },
   stablecoin: { name: 'stablecoin', description: 'Token that tracks the US dollar' },
   bridged: { name: 'bridged', description: 'Bridged to Gully Chain from Arbitrum Sepolia. The origin token is in extensions.bridgeInfo' },
-  launchpad: { name: 'launchpad', description: 'Launched on Gully Core, the Gully Chain launchpad and DEX core. Testnet: test token, no value' },
+  launchpad: { name: 'launchpad', description: 'Launched on a Gully Chain launchpad. Testnet: test token, no value' },
   graduated: { name: 'graduated', description: 'Graduated from the launchpad bonding curve to a Gully Swap pool' },
+  // Gully Core is THE launchpad from 2026-10-29. The token-lists schema only allows tag ids ^[\w]+$ of at most 10
+  // characters, so "gully-core" is id `gullycore` and "legacy-launchpad" is id `legacy` (names carry the long form).
+  gullycore: { name: 'gully core', description: 'Launched on Gully Core' },
+  legacy: { name: 'legacy launchpad', description: 'Launched on a legacy Gully Chain launchpad, before Gully Core. Testnet: test token, no value' },
 };
 
 export const loadJson = (p) => JSON.parse(readFileSync(p, 'utf8'));
@@ -131,3 +135,56 @@ export function flaggedBySecurity(reports, chainId) {
   }
   return out;
 }
+
+// ---------------------------------------------------------------- Gully Core launches
+
+export const IPFS_GATEWAY = 'https://ipfs.gullylabs.xyz/ipfs/';
+/** ipfs://<cid>[/path] -> the Gully Labs gateway; https:// passes through; anything else is refused (null). */
+export function gatewayUrl(u, gateway = IPFS_GATEWAY) {
+  if (typeof u !== 'string') return null;
+  const s = u.trim();
+  if (s.length > 500 || /[\s"<>]/.test(s)) return null;
+  if (s.startsWith('ipfs://')) { const p = s.slice(7).replace(/^ipfs\//, ''); return p ? `${gateway}${p}` : null; }
+  if (s.startsWith('https://')) return s;
+  return null;
+}
+
+/** The icon URL (gateway) from a token-metadata JSON object: `image`, else `logo`. */
+export function metadataImage(json, gateway = IPFS_GATEWAY) {
+  if (!json || typeof json !== 'object') return null;
+  const img = typeof json.image === 'string' ? json.image : typeof json.logo === 'string' ? json.logo : null;
+  return gatewayUrl(img, gateway);
+}
+
+/**
+ * LaunchToken.metadataURI() -> icon URL. ipfs:// (or https://) metadata JSON is fetched with `getJson`; data: JSON
+ * URIs are parsed inline. Never throws: null when there is no usable image.
+ */
+export async function gullyCoreLogo(metadataURI, getJson, gateway = IPFS_GATEWAY) {
+  try {
+    const m = /^data:application\/json(;base64)?,([\s\S]*)$/.exec(metadataURI || '');
+    if (m) return metadataImage(JSON.parse(m[1] ? Buffer.from(m[2], 'base64').toString('utf8') : decodeURIComponent(m[2])), gateway);
+    const url = gatewayUrl(metadataURI, gateway);
+    if (!url) return null;
+    return metadataImage(await getJson(url), gateway);
+  } catch { return null; }
+}
+
+/**
+ * Admission of a Gully Core launch to the extended list: launched by the kit (createdAt != 0), every leg's liquidity
+ * lock verified on chain, not excluded or flagged by Gully Security, an ipfs icon, and the activity filter when the
+ * indexer already has the token (a launch it has not indexed yet is admitted on the on-chain checks alone).
+ * Returns null when admitted, else the reason.
+ */
+export function gullyCoreSkipReason({ launch, locked, logo, row, excluded, flagged, filter }) {
+  if (!launch || !launch.createdAt) return 'not a Gully Core launch (kit getLaunch createdAt = 0)';
+  if (excluded) return 'excluded in config.json';
+  if (flagged) return 'flagged by a Gully Security report';
+  if (!locked) return 'liquidity lock not verified on chain';
+  if (!logo) return 'no ipfs icon in its metadata';
+  if (row && !activeEnough(row, filter)) return `below activity filter (holders ${row.holders}, txns ${row.txns})`;
+  return null;
+}
+
+/** Legacy launchpad rows: the indexer's pre-Gully-Core sources. */
+export const isLegacyRow = (row) => row?.source === 'launchpad' || row?.source === 'legacy-launchpad' || row?.legacy === true;
