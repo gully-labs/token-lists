@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { nextVersion, checkList, canon, launchImage, activeEnough, flaggedBySecurity, isChecksummed, TAGS } from '../lib.mjs';
+import { nextVersion, checkList, canon, launchImage, activeEnough, flaggedBySecurity, isChecksummed, TAGS, gatewayUrl, metadataImage, gullyCoreLogo, gullyCoreSkipReason, isLegacyRow } from '../lib.mjs';
 import { validateSchema } from '../schema.mjs';
 
 const A = '0x26aCCCb2e98ca9e067E58668Aa3B101beF432754';
@@ -91,3 +91,56 @@ test('security flags: only critical/high reports on this chain', () => {
   assert.ok(s.has(A.toLowerCase())); assert.ok(!s.has(B.toLowerCase())); assert.ok(!s.has(C.toLowerCase()));
 });
 test('isChecksummed', () => { assert.ok(isChecksummed(A)); assert.ok(!isChecksummed(A.toLowerCase())); assert.ok(!isChecksummed('0x12')); });
+
+// ---------------------------------------------------------------- Gully Core
+test('Gully Core tags are schema-valid and described', () => {
+  assert.equal(TAGS.gullycore.description, 'Launched on Gully Core');
+  assert.equal(TAGS.legacy.name, 'legacy launchpad');
+  const icon = 'https://ipfs.gullylabs.xyz/ipfs/bafkreihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku';
+  const l = list([tok(A, 'WETH', { tags: ['wrapped'] }), tok(B, 'FROG', { tags: ['gullycore'], logoURI: icon, extensions: { source: 'gully-core', launchpad: '0xd46543Fcb42878868eBA0C62ea1F7801a357B12D' } }), tok(C, 'MOSS', { tags: ['launchpad', 'legacy'] })]);
+  assert.deepEqual(validateSchema(l), []);
+  assert.deepEqual(checkList(l, { chainId: 485590 }), []);
+  // the hyphenated ids from the spec would not validate
+  assert.ok(validateSchema({ ...l, tags: { ...l.tags, 'gully-core': TAGS.gullycore } }).length > 0);
+});
+test('Gully Core: adding a launch is a minor bump, retagging legacy is a patch', () => {
+  const p = list([tok(A, 'WETH'), tok(C, 'MOSS', { tags: ['launchpad'] })], { major: 2, minor: 0, patch: 0 });
+  assert.deepEqual(nextVersion(p, list([tok(A, 'WETH'), tok(C, 'MOSS', { tags: ['launchpad', 'legacy'] })])), { major: 2, minor: 0, patch: 1 });
+  assert.deepEqual(nextVersion(p, list([tok(A, 'WETH'), tok(C, 'MOSS', { tags: ['launchpad'] }), tok(B, 'FROG', { tags: ['gullycore'] })])), { major: 2, minor: 1, patch: 0 });
+});
+test('gatewayUrl / metadataImage: ipfs to the Gully gateway, https kept, others refused', () => {
+  assert.equal(gatewayUrl('ipfs://bafyicon'), 'https://ipfs.gullylabs.xyz/ipfs/bafyicon');
+  assert.equal(gatewayUrl('ipfs://ipfs/bafyicon/a.png'), 'https://ipfs.gullylabs.xyz/ipfs/bafyicon/a.png');
+  assert.equal(gatewayUrl('https://x.y/a.png'), 'https://x.y/a.png');
+  assert.equal(gatewayUrl('http://x.y/a.png'), null);
+  assert.equal(gatewayUrl('javascript:alert(1)'), null);
+  assert.equal(gatewayUrl('ipfs://'), null);
+  assert.equal(metadataImage({ image: 'ipfs://bafyimg' }), 'https://ipfs.gullylabs.xyz/ipfs/bafyimg');
+  assert.equal(metadataImage({ name: 'x' }), null);
+});
+test('gullyCoreLogo: fetches the ipfs metadata JSON and maps its image', async () => {
+  const seen = [];
+  const getJson = async (u) => { seen.push(u); return { name: 'Frog', image: 'ipfs://bafyicon' }; };
+  assert.equal(await gullyCoreLogo('ipfs://bafymeta', getJson), 'https://ipfs.gullylabs.xyz/ipfs/bafyicon');
+  assert.deepEqual(seen, ['https://ipfs.gullylabs.xyz/ipfs/bafymeta']);
+  const inline = 'data:application/json;base64,' + Buffer.from(JSON.stringify({ image: 'ipfs://bafyinline' })).toString('base64');
+  assert.equal(await gullyCoreLogo(inline, getJson), 'https://ipfs.gullylabs.xyz/ipfs/bafyinline');
+  assert.equal(await gullyCoreLogo('ipfs://bafymeta', async () => { throw new Error('504'); }), null);
+  assert.equal(await gullyCoreLogo('', getJson), null);
+});
+test('gullyCoreSkipReason: launch, lock, icon, exclusions, activity', () => {
+  const f = { minHolders: 2, minTxns: 3 };
+  const ok = { launch: { createdAt: 1 }, locked: true, logo: 'https://ipfs.gullylabs.xyz/ipfs/x', row: null, excluded: false, flagged: false, filter: f };
+  assert.equal(gullyCoreSkipReason(ok), null);
+  assert.match(gullyCoreSkipReason({ ...ok, launch: { createdAt: 0 } }), /not a Gully Core launch/);
+  assert.match(gullyCoreSkipReason({ ...ok, locked: false }), /lock not verified/);
+  assert.match(gullyCoreSkipReason({ ...ok, logo: null }), /no ipfs icon/);
+  assert.match(gullyCoreSkipReason({ ...ok, excluded: true }), /excluded/);
+  assert.match(gullyCoreSkipReason({ ...ok, flagged: true }), /Gully Security/);
+  assert.match(gullyCoreSkipReason({ ...ok, row: { holders: 1, txns: 1 } }), /activity/);
+  assert.equal(gullyCoreSkipReason({ ...ok, row: { holders: 5, txns: 9 } }), null);
+});
+test('isLegacyRow', () => {
+  assert.ok(isLegacyRow({ source: 'launchpad' })); assert.ok(isLegacyRow({ source: 'legacy-launchpad' }));
+  assert.ok(!isLegacyRow({ source: 'gully-core' })); assert.ok(!isLegacyRow({ source: 'pool' }));
+});

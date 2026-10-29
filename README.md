@@ -37,7 +37,7 @@ unchanged below; the Gully lists, logos and tools are in `lists/`, `logos/` and 
 | List | URL | File |
 |---|---|---|
 | **Gully Chain** (default, curated) | https://gullychain.xyz/tokenlist.json | [`lists/gully.tokenlist.json`](lists/gully.tokenlist.json) |
-| **Gully Chain Extended** (plus active launchpad tokens) | https://gullychain.xyz/tokenlist-extended.json | [`lists/gully-extended.tokenlist.json`](lists/gully-extended.tokenlist.json) |
+| **Gully Chain Extended** (plus Gully Core launches and active legacy launchpad tokens) | https://gullychain.xyz/tokenlist-extended.json | [`lists/gully-extended.tokenlist.json`](lists/gully-extended.tokenlist.json) |
 | Logos | `https://gullychain.xyz/tokens/logos/485590/<address>.png\|svg` | [`logos/485590/`](logos/485590) |
 
 All three are served with `Access-Control-Allow-Origin: *` and `Cache-Control: public, max-age=300`, so any web app can
@@ -51,7 +51,7 @@ fetch them. Raw GitHub URLs work too (`https://raw.githubusercontent.com/gully-l
 | gETH (Gully Bridged ETH) | `0x7Dd1Aa3d8598A3edB43EB43ddcb5BCE4AbfBb702` | Hyperlane warp route; native ETH locked on Arbitrum Sepolia (`bridgeInfo` 421614) |
 | USDC.e (Bridged USDC (Gully Labs)) | `0x65Ba03c6FA90Ed549f465D4c8f2e784D6eEB7E76` | Circle Bridged USDC Standard; Circle USDC on Arbitrum Sepolia (`bridgeInfo` 421614) |
 | glUSD (Gully USD) | `0xDBE84bE6496Fb3d07F601548555ec7Acc4CeBa8F` | Gully Pay stablecoin, 1:1 PSM against USDC.e |
-| FROG, MOSS, LABRAT | see the list | Gully launchpad test tokens |
+| FROG, MOSS, LABRAT | see the list | legacy launchpad test tokens (tags `launchpad`, `legacy`) |
 
 The Arbitrum token-bridge WETH (`0x3292dE74305DF64dbe082c6834fa841353eB2415`, also symbol WETH, supply 0) is
 deliberately not listed: one WETH per list. Use WETH9 to wrap ETH and gETH for bridged ETH.
@@ -79,8 +79,9 @@ Bundle a copy of the list as a fallback for when the fetch fails, and check `ver
 ## Add a token
 
 See [CONTRIBUTING.md](CONTRIBUTING.md): a PR that adds the address and tags to `gully/config.json` plus a logo; the
-build reads name, symbol and decimals from the chain, CI checks everything again. Launchpad tokens join the extended list
-on their own once active.
+build reads name, symbol and decimals from the chain, CI checks everything again. Gully Core launches join the extended
+list on their own (tag `gullycore`, "Launched on Gully Core", logo = the on-chain ipfs icon) once their liquidity lock
+verifies on chain; legacy launchpad tokens once active.
 
 ## Build and validate
 
