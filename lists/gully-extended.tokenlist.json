@@ -1,10 +1,10 @@
 {
   "name": "Gully Chain Extended",
-  "timestamp": "2026-10-28T00:32:50.682Z",
+  "timestamp": "2026-10-29T06:07:47.790Z",
   "version": {
     "major": 1,
     "minor": 0,
-    "patch": 1
+    "patch": 2
   },
   "logoURI": "https://gullychain.xyz/assets/apple-touch-icon.png",
   "keywords": [
@@ -30,7 +30,11 @@
     },
     "launchpad": {
       "name": "launchpad",
-      "description": "Launched on DeepCore, the Gully Chain launchpad. Testnet: test token, no value"
+      "description": "Launched on a Gully Chain launchpad. Testnet: test token, no value"
+    },
+    "legacy": {
+      "name": "legacy launchpad",
+      "description": "Launched on a legacy Gully Chain launchpad, before Gully Core. Testnet: test token, no value"
     }
   },
   "tokens": [
@@ -42,7 +46,8 @@
       "decimals": 18,
       "logoURI": "https://gullychain.xyz/tokens/logos/485590/0x661B016D2Dc8E5e418C3B00A4098e341d8637ec1.png",
       "tags": [
-        "launchpad"
+        "launchpad",
+        "legacy"
       ],
       "extensions": {
         "launchpad": "0x3378b659f6ddA7F13D87599B383b3995f82D0974",
@@ -93,7 +98,8 @@
       "decimals": 18,
       "logoURI": "https://gullychain.xyz/tokens/logos/485590/0xE6AB829a02AAF474e7b6d4434B82A68EBC618Fe4.png",
       "tags": [
-        "launchpad"
+        "launchpad",
+        "legacy"
       ],
       "extensions": {
         "launchpad": "0x3378b659f6ddA7F13D87599B383b3995f82D0974",
@@ -108,7 +114,8 @@
       "decimals": 18,
       "logoURI": "https://gullychain.xyz/tokens/logos/485590/0x8386a49a61060Cc3F21415bde2e78b2ecaC209DC.png",
       "tags": [
-        "launchpad"
+        "launchpad",
+        "legacy"
       ],
       "extensions": {
         "launchpad": "0x3378b659f6ddA7F13D87599B383b3995f82D0974",

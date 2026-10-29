@@ -13,6 +13,16 @@
     { "address": "0x3378b659f6ddA7F13D87599B383b3995f82D0974", "version": "2.0.0", "name": "DeepCore launchpad v2.0" },
     { "address": "0xCe2c3Ac523EfF3Bec8D3894f7e5C5F519638326b", "version": "2.1.0", "name": "DeepCore launchpad v2.1" }
   ],
+  "gullyCore": {
+    "$comment": "Gully Core, THE launchpad from 2026-10-29 (gully-ops l3/generated/gully-core.json). Its launches join the extended list with tag gullycore when every leg is locked on chain; logoURI = the on-chain ipfs icon through ipfsGateway. fromBlock = the LaunchpadKitV2 deploy block.",
+    "kit": "0xd46543Fcb42878868eBA0C62ea1F7801a357B12D",
+    "fromBlock": 2550,
+    "launchRegistry": "0x232B22f21cF12Db740df21DE09915eC7F6e61039",
+    "clLocker": "0x0Ca509787bf2C6a241761586d02885b9719aca5f",
+    "binLocker": "0x444719a68d039639655EDC943F1826cC2835c5a5",
+    "clPositionManager": "0x337c8E7B40132B677db2b99445EbC6B3835fd7A4",
+    "ipfsGateway": "https://ipfs.gullylabs.xyz/ipfs/"
+  },
   "curated": [
     {
       "address": "0x26aCCCb2e98ca9e067E58668Aa3B101beF432754",
@@ -39,9 +49,9 @@
       "extensions": { "psm": "0xe1Ae51036ede1b244c532A81FaC196f19fa5E28e", "backedBy": "0x65Ba03c6FA90Ed549f465D4c8f2e784D6eEB7E76" },
       "note": "glUSD: Gully Pay's stablecoin, minted 1:1 against USDC.e by the PSM"
     },
-    { "address": "0x661B016D2Dc8E5e418C3B00A4098e341d8637ec1", "tags": ["launchpad"], "note": "FROG, DeepCore launch (test token)" },
-    { "address": "0x8386a49a61060Cc3F21415bde2e78b2ecaC209DC", "tags": ["launchpad"], "note": "MOSS, DeepCore launch (test token)" },
-    { "address": "0xE6AB829a02AAF474e7b6d4434B82A68EBC618Fe4", "tags": ["launchpad"], "note": "LABRAT, DeepCore launch (test token)" }
+    { "address": "0x661B016D2Dc8E5e418C3B00A4098e341d8637ec1", "tags": ["launchpad", "legacy"], "note": "FROG, DeepCore launch (test token)" },
+    { "address": "0x8386a49a61060Cc3F21415bde2e78b2ecaC209DC", "tags": ["launchpad", "legacy"], "note": "MOSS, DeepCore launch (test token)" },
+    { "address": "0xE6AB829a02AAF474e7b6d4434B82A68EBC618Fe4", "tags": ["launchpad", "legacy"], "note": "LABRAT, DeepCore launch (test token)" }
   ],
   "excluded": [
     {

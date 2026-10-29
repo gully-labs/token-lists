@@ -29,3 +29,10 @@ test('exactly one WETH, and it is WETH9', () => {
   assert.equal(w.length, 1);
   assert.equal(w[0].address, '0x26aCCCb2e98ca9e067E58668Aa3B101beF432754');
 });
+test('legacy launchpad tokens carry the legacy tag, Gully Core tokens the gullycore tag with an https logo', () => {
+  for (const kind of Object.keys(LISTS)) for (const t of loadList(kind).tokens) {
+    const tags = t.tags || [];
+    if (tags.includes('launchpad')) assert.ok(tags.includes('legacy'), `${t.symbol} launchpad without legacy`);
+    if (tags.includes('gullycore')) { assert.ok(!tags.includes('legacy')); assert.match(t.logoURI, /^https:\/\//); assert.equal(t.extensions?.source, 'gully-core'); }
+  }
+});
