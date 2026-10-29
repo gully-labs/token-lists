@@ -1,10 +1,10 @@
 {
   "name": "Gully Chain Extended",
-  "timestamp": "2026-10-28T00:32:50.682Z",
+  "timestamp": "2026-10-29T04:28:22.000Z",
   "version": {
     "major": 1,
     "minor": 0,
-    "patch": 1
+    "patch": 2
   },
   "logoURI": "https://gullychain.xyz/assets/apple-touch-icon.png",
   "keywords": [
@@ -30,7 +30,7 @@
     },
     "launchpad": {
       "name": "launchpad",
-      "description": "Launched on DeepCore, the Gully Chain launchpad. Testnet: test token, no value"
+      "description": "Launched on Gully Core, the Gully Chain launchpad and DEX core. Testnet: test token, no value"
     }
   },
   "tokens": [

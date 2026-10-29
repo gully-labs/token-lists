@@ -51,7 +51,7 @@ fetch them. Raw GitHub URLs work too (`https://raw.githubusercontent.com/gully-l
 | gETH (Gully Bridged ETH) | `0x7Dd1Aa3d8598A3edB43EB43ddcb5BCE4AbfBb702` | Hyperlane warp route; native ETH locked on Arbitrum Sepolia (`bridgeInfo` 421614) |
 | USDC.e (Bridged USDC (Gully Labs)) | `0x65Ba03c6FA90Ed549f465D4c8f2e784D6eEB7E76` | Circle Bridged USDC Standard; Circle USDC on Arbitrum Sepolia (`bridgeInfo` 421614) |
 | glUSD (Gully USD) | `0xDBE84bE6496Fb3d07F601548555ec7Acc4CeBa8F` | Gully Pay stablecoin, 1:1 PSM against USDC.e |
-| FROG, MOSS, LABRAT | see the list | DeepCore launchpad test tokens |
+| FROG, MOSS, LABRAT | see the list | Gully launchpad test tokens |
 
 The Arbitrum token-bridge WETH (`0x3292dE74305DF64dbe082c6834fa841353eB2415`, also symbol WETH, supply 0) is
 deliberately not listed: one WETH per list. Use WETH9 to wrap ETH and gETH for bridged ETH.

@@ -21,7 +21,7 @@ export const TAGS = {
   wrapped: { name: 'native wrapped', description: 'WETH9, the wrapped native gas token. Unwraps 1:1 to ETH on Gully Chain' },
   stablecoin: { name: 'stablecoin', description: 'Token that tracks the US dollar' },
   bridged: { name: 'bridged', description: 'Bridged to Gully Chain from Arbitrum Sepolia. The origin token is in extensions.bridgeInfo' },
-  launchpad: { name: 'launchpad', description: 'Launched on DeepCore, the Gully Chain launchpad. Testnet: test token, no value' },
+  launchpad: { name: 'launchpad', description: 'Launched on Gully Core, the Gully Chain launchpad and DEX core. Testnet: test token, no value' },
   graduated: { name: 'graduated', description: 'Graduated from the launchpad bonding curve to a Gully Swap pool' },
 };
 
