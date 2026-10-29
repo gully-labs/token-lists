@@ -5,9 +5,9 @@ The Gully Chain lists follow the [Uniswap token-lists](https://github.com/Uniswa
 | List | URL | What is on it |
 |---|---|---|
 | Default (curated) | `https://gullychain.xyz/tokenlist.json` | WETH9, the stablecoins, bridged assets and tokens reviewed in a PR here |
-| Extended | `https://gullychain.xyz/tokenlist-extended.json` | the default list plus every DeepCore launchpad token that passes the activity filter |
+| Extended | `https://gullychain.xyz/tokenlist-extended.json` | the default list plus every Gully Chain launchpad (Gully Core) token that passes the activity filter |
 
-**You do not need a PR for the extended list.** A token launched on DeepCore joins it at the next build once the
+**You do not need a PR for the extended list.** A token launched on the Gully Chain launchpad joins it at the next build once the
 indexer shows at least `minHolders` holders and `minTxns` trades (see `gully/config.json`), or once it graduates to a
 Gully Swap pool, unless a published Gully Security report has critical or high findings for it.
 
@@ -20,7 +20,7 @@ Gully Swap pool, unless a published Gully Security report has critical or high f
    testnet-explorer.gullychain.xyz today).
 2. **Standard ERC-20.** No transfer tax, blocklist, pausable transfers or owner minting after launch, unless the PR says
    why (a regulated stablecoin, for example).
-3. **Liquidity and holders.** At least 0.05 ETH of liquidity in a Gully Swap pool (or graduated from DeepCore) and at
+3. **Liquidity and holders.** At least 0.05 ETH of liquidity in a Gully Swap pool (or graduated from the Gully Chain launchpad) and at
    least 25 holders.
 4. **No Gully Security flag.** No published report with critical or high findings at
    `https://gullylabs.xyz/api/security/reports`.
@@ -53,7 +53,7 @@ removal, minor on an addition, patch on a metadata change; the timestamp moves o
 | `wrapped` (name "native wrapped") | WETH9, unwraps 1:1 to ETH |
 | `stablecoin` | tracks the US dollar |
 | `bridged` | bridged from Arbitrum Sepolia; `extensions.bridgeInfo` names the origin token |
-| `launchpad` | launched on DeepCore |
+| `launchpad` | launched on Gully Core, the Gully Chain launchpad |
 | `graduated` | graduated from the bonding curve to a Gully Swap pool |
 
 Tag ids follow the schema (at most 10 word characters), so "native-wrapped" is the display name of `wrapped`.
