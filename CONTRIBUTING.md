@@ -26,7 +26,7 @@ Either way a published Gully Security report with critical or high findings keep
    testnet-explorer.gullychain.xyz today).
 2. **Standard ERC-20.** No transfer tax, blocklist, pausable transfers or owner minting after launch, unless the PR says
    why (a regulated stablecoin, for example).
-3. **Liquidity and holders.** At least 0.05 ETH of liquidity in a Gully Swap pool (or graduated from DeepCore) and at
+3. **Liquidity and holders.** At least 0.05 ETH of liquidity in a Gully Swap pool (or graduated from the Gully Chain launchpad) and at
    least 25 holders.
 4. **No Gully Security flag.** No published report with critical or high findings at
    `https://gullylabs.xyz/api/security/reports`.
