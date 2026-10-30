@@ -2,8 +2,8 @@
 <p align="center">
   <a href="https://gullychain.xyz">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/gullychain-wordmark-for-dark-bg.png">
-      <img alt="Gully Chain" src=".github/assets/gullychain-wordmark-for-light-bg.png" width="360">
+      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/gullychain-badge-dark.png">
+      <img alt="Powered by GullyChain" src=".github/assets/gullychain-badge-light.png" width="360" height="96">
     </picture>
   </a>
 </p>
