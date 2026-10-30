@@ -1,10 +1,10 @@
 {
   "name": "Gully Chain",
-  "timestamp": "2026-10-29T16:23:51.842Z",
+  "timestamp": "2026-10-30T18:45:00.000Z",
   "version": {
-    "major": 2,
+    "major": 3,
     "minor": 0,
-    "patch": 3
+    "patch": 0
   },
   "logoURI": "https://gullychain.xyz/assets/apple-touch-icon.png",
   "keywords": [
@@ -72,21 +72,6 @@
             "tokenAddress": "0x3Aa770313a4c8aa6F9B1055fDBfd9dbC4051bad0"
           }
         }
-      }
-    },
-    {
-      "chainId": 485590,
-      "address": "0xDBE84bE6496Fb3d07F601548555ec7Acc4CeBa8F",
-      "name": "Gully USD",
-      "symbol": "glUSD",
-      "decimals": 6,
-      "logoURI": "https://gullychain.xyz/tokens/logos/485590/0xDBE84bE6496Fb3d07F601548555ec7Acc4CeBa8F.png",
-      "tags": [
-        "stablecoin"
-      ],
-      "extensions": {
-        "psm": "0xe1Ae51036ede1b244c532A81FaC196f19fa5E28e",
-        "backedBy": "0x65Ba03c6FA90Ed549f465D4c8f2e784D6eEB7E76"
       }
     },
     {
