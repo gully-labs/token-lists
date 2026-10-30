@@ -62,7 +62,7 @@ deliberately not listed: one WETH per list. Use WETH9 to wrap ETH and gETH for b
 `https://gullychain.xyz/tokenlist.json` (or the extended URL) → Import.
 
 **Wallets:** most wallets that read token lists (Rabby, Rainbow, Zerion and others) pick tokens from lists they track;
-for a single token, add it by address on network Gully Chain Testnet (chain id 485590, RPC https://rpc.gullychain.xyz).
+for a single token, add it by address on network Gully Chain Testnet (chain id 485590, RPC https://testnet-rpc.gullychain.xyz).
 MetaMask: Import tokens → paste the address (symbol and decimals fill in).
 
 **dApps:**
@@ -95,7 +95,7 @@ node validate.mjs --onchain    # schema (ajv) + duplicate/checksum/logo checks +
 
 `build.mjs` fails on duplicates, bad checksums, a missing logo, schema errors or a token without contract code; the
 versioning follows the spec (major on removal, minor on addition, patch on metadata). The sources are all public:
-RPC `https://rpc.gullychain.xyz`, indexer `https://indexer.gullychain.xyz/tokens`, Gully Security
+RPC `https://testnet-rpc.gullychain.xyz`, indexer `https://indexer.gullychain.xyz/tokens`, Gully Security
 `https://gullylabs.xyz/api/security/reports`. Nothing in this repo needs a key; never commit one.
 
 Publishing: gully-ops (`l3/tokenlist/sync.mjs`) copies `lists/` and `logos/` from this repo into the gullychain.xyz site

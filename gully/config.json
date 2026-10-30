@@ -2,7 +2,7 @@
   "$comment": "Source of the Gully token lists. Addresses here are public on-chain contract addresses (no secrets: this repo is public). name, symbol and decimals are never typed in: tools/build.mjs reads them from the chain. Edit this file in a PR to add a curated token (see CONTRIBUTING.md).",
   "chainId": 485590,
   "chainName": "Gully Chain Testnet",
-  "rpcUrl": "https://rpc.gullychain.xyz",
+  "rpcUrl": "https://testnet-rpc.gullychain.xyz",
   "indexerUrl": "https://indexer.gullychain.xyz",
   "securityReportsUrl": "https://gullylabs.xyz/api/security/reports",
   "logoBaseUrl": "https://gullychain.xyz/tokens/logos",
