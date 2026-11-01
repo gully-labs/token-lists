@@ -16,7 +16,7 @@ test('version: unchanged list keeps the version', () => {
 });
 test('version: removal is major', () => {
   const p = list([tok(A, 'WETH'), tok(B, 'USDC')], { major: 1, minor: 2, patch: 3 });
-  assert.deepEqual(nextVersion(p, list([tok(A, 'WETH'), tok(C, 'GLUSD')])), { major: 2, minor: 0, patch: 0 });
+  assert.deepEqual(nextVersion(p, list([tok(A, 'WETH'), tok(C, 'USDT')])), { major: 2, minor: 0, patch: 0 });
 });
 test('version: addition is minor', () => {
   const p = list([tok(A, 'WETH')], { major: 1, minor: 2, patch: 3 });
