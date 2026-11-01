@@ -33,6 +33,9 @@ Either way a published Gully Security report with critical or high findings keep
 5. **Logo.** `logos/485590/<checksummed address>.png`: square, 256x256 PNG (or a square SVG with no scripts or external
    references), under 100 KB, your own artwork, no third-party trademarks. Without one, `python gully/tools/logos.py`
    uses the launch image or draws a plain monogram mark.
+   One exception: USDC.e carries Circle's official USDC token logo, unmodified from the Circle pressroom brand kit
+   (`usdc.zip`, `Token Logo/USDC Token.png`, 512x512, sha256 `5b1dbf7848e8...39e7c6`), under the Circle Brand Use Policy.
+   Do not resize or redraw it.
 
 ## Steps
 
