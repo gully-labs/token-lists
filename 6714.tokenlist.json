@@ -1,0 +1,31 @@
+{
+  "name": "Gully Core Anubis",
+  "timestamp": "2026-11-08T00:00:00.000Z",
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "keywords": [
+    "gully core",
+    "anubis"
+  ],
+  "tags": {
+    "stablecoin": {
+      "name": "Stablecoin",
+      "description": "A token meant to hold one dollar."
+    }
+  },
+  "tokens": [
+    {
+      "chainId": 6714,
+      "address": "0x83fd06F0846d9D90B3016bF670Efe2E0B11cDe14",
+      "name": "Dai Stablecoin",
+      "symbol": "DAI",
+      "decimals": 18,
+      "tags": [
+        "stablecoin"
+      ]
+    }
+  ]
+}

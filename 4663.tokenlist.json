@@ -1,0 +1,59 @@
+{
+  "name": "Gully Core Robinhood",
+  "timestamp": "2026-11-08T00:00:00.000Z",
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "keywords": [
+    "gully core",
+    "robinhood"
+  ],
+  "tags": {
+    "native": {
+      "name": "Native asset",
+      "description": "The chain gas token, addressed as the zero address in Gully Core pools."
+    },
+    "stablecoin": {
+      "name": "Stablecoin",
+      "description": "A token meant to hold one dollar."
+    },
+    "wrapped": {
+      "name": "Wrapped native",
+      "description": "The wrapped form of the gas token, a router argument and a pool token where native pools exist."
+    }
+  },
+  "tokens": [
+    {
+      "chainId": 4663,
+      "address": "0x0000000000000000000000000000000000000000",
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "tags": [
+        "native"
+      ]
+    },
+    {
+      "chainId": 4663,
+      "address": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+      "name": "WETH",
+      "symbol": "WETH",
+      "decimals": 18,
+      "tags": [
+        "wrapped"
+      ]
+    },
+    {
+      "chainId": 4663,
+      "address": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+      "name": "Global Dollar",
+      "symbol": "USDG",
+      "decimals": 6,
+      "tags": [
+        "stablecoin"
+      ]
+    }
+  ]
+}

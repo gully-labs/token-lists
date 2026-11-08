@@ -1,0 +1,59 @@
+{
+  "name": "Gully Core Base",
+  "timestamp": "2026-11-08T00:00:00.000Z",
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "keywords": [
+    "gully core",
+    "base"
+  ],
+  "tags": {
+    "native": {
+      "name": "Native asset",
+      "description": "The chain gas token, addressed as the zero address in Gully Core pools."
+    },
+    "stablecoin": {
+      "name": "Stablecoin",
+      "description": "A token meant to hold one dollar."
+    },
+    "wrapped": {
+      "name": "Wrapped native",
+      "description": "The wrapped form of the gas token, a router argument and a pool token where native pools exist."
+    }
+  },
+  "tokens": [
+    {
+      "chainId": 8453,
+      "address": "0x0000000000000000000000000000000000000000",
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "tags": [
+        "native"
+      ]
+    },
+    {
+      "chainId": 8453,
+      "address": "0x4200000000000000000000000000000000000006",
+      "name": "Wrapped Ether",
+      "symbol": "WETH",
+      "decimals": 18,
+      "tags": [
+        "wrapped"
+      ]
+    },
+    {
+      "chainId": 8453,
+      "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "name": "USD Coin",
+      "symbol": "USDC",
+      "decimals": 6,
+      "tags": [
+        "stablecoin"
+      ]
+    }
+  ]
+}

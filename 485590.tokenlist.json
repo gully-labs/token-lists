@@ -1,0 +1,87 @@
+{
+  "name": "Gully Core Testnet",
+  "timestamp": "2026-11-08T00:00:00.000Z",
+  "version": {
+    "major": 1,
+    "minor": 1,
+    "patch": 0
+  },
+  "keywords": [
+    "gully core",
+    "gully chain",
+    "testnet"
+  ],
+  "tags": {
+    "native": {
+      "name": "Native asset",
+      "description": "The chain gas token, addressed as the zero address in Gully Core pools."
+    },
+    "wrapped": {
+      "name": "Wrapped native",
+      "description": "WETH9, the wrapped form of the gas token."
+    },
+    "stablecoin": {
+      "name": "Stablecoin",
+      "description": "A token meant to hold one dollar. On a testnet it has no value."
+    },
+    "demo": {
+      "name": "Demo token",
+      "description": "A Gully Core demo launch on a testnet. No value."
+    }
+  },
+  "tokens": [
+    {
+      "chainId": 485590,
+      "address": "0x0000000000000000000000000000000000000000",
+      "decimals": 18,
+      "name": "Ether",
+      "symbol": "ETH",
+      "logoURI": "https://gullychain.xyz/core/chains/ethereum.svg",
+      "tags": [
+        "native"
+      ]
+    },
+    {
+      "chainId": 485590,
+      "address": "0x26aCCCb2e98ca9e067E58668Aa3B101beF432754",
+      "decimals": 18,
+      "name": "Wrapped Ether",
+      "symbol": "WETH",
+      "logoURI": "https://gullychain.xyz/tokens/logos/485590/0x26aCCCb2e98ca9e067E58668Aa3B101beF432754.png",
+      "tags": [
+        "wrapped"
+      ]
+    },
+    {
+      "chainId": 485590,
+      "address": "0x65Ba03c6FA90Ed549f465D4c8f2e784D6eEB7E76",
+      "decimals": 6,
+      "name": "Bridged USDC (Gully Labs)",
+      "symbol": "USDC.e",
+      "logoURI": "https://gullychain.xyz/tokens/logos/485590/0x65Ba03c6FA90Ed549f465D4c8f2e784D6eEB7E76.png",
+      "tags": [
+        "stablecoin"
+      ]
+    },
+    {
+      "chainId": 485590,
+      "address": "0x1698d9a050AC67f8C952BaE4D0ba205e7f843F52",
+      "name": "Pebble",
+      "symbol": "PBL",
+      "decimals": 18,
+      "tags": [
+        "demo"
+      ]
+    },
+    {
+      "chainId": 485590,
+      "address": "0x158f832dF9Bc0ac039Db6b9D0EE49Ca202da8903",
+      "name": "Comet",
+      "symbol": "CMT",
+      "decimals": 18,
+      "tags": [
+        "demo"
+      ]
+    }
+  ]
+}
