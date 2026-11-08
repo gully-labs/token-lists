@@ -23,7 +23,7 @@ Either way a published Gully Security report with critical or high findings keep
 ## Requirements
 
 1. **Verified source.** The contract is verified on the Gully Chain explorer (verify.gullychain.xyz once it is live;
-   testnet-explorer.gullychain.xyz today).
+   testnet.gullyscan.xyz today).
 2. **Standard ERC-20.** No transfer tax, blocklist, pausable transfers or owner minting after launch, unless the PR says
    why (a regulated stablecoin, for example).
 3. **Liquidity and holders.** At least 0.05 ETH of liquidity in a Gully Swap pool (or graduated from the Gully Chain launchpad) and at

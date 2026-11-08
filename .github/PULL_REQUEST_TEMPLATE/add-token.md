@@ -9,7 +9,7 @@
 
 ### Checks (all must be true)
 
-- [ ] The contract's source is verified on the Gully Chain explorer (verify.gullychain.xyz once live; testnet-explorer.gullychain.xyz today)
+- [ ] The contract's source is verified on the Gully Chain explorer (verify.gullychain.xyz once live; testnet.gullyscan.xyz today)
 - [ ] It is a standard ERC-20 (no transfer tax, no blocklist, no owner mint after launch) or the PR explains why not
 - [ ] Liquidity: at least 0.05 ETH in a Gully Swap pool, or graduated from the Gully Chain launchpad (Gully Core)
 - [ ] At least 25 holders (extended list: the indexer filter in `gully/config.json` applies instead)
